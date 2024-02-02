@@ -1,10 +1,9 @@
 mod libs;
-
 use libs::converter::*;
-use std::mem;
-
+use libs::bit::*;
 
 fn main() {
+    w1w_readbyte();
     // Ввод
     let mut line = "".to_string();
     std::io::stdin().read_line(&mut line).unwrap();
