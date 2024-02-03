@@ -3,7 +3,8 @@ use libs::converter::*;
 use libs::bit::*;
 
 fn main() {
-    w1w_readbyte();
+    // w1w_readbyte();
+    base64encode("pri");
     // Ввод
     let mut line = "".to_string();
     std::io::stdin().read_line(&mut line).unwrap();
