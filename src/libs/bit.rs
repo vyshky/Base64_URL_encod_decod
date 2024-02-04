@@ -1,23 +1,7 @@
-use std::io::stdout;
-use std::str::Chars;
-
-// todo :: понять как перебирать блоками, то есть смещать на 3 бита и записывать значение в массив
-pub fn w1w_readbyte() -> u8
-{
-    let mut byte: u8 = 0xFF;
-    let mut count = 0;
-    for i in 0..8 {
-        byte >>= 1;
-        byte = byte | 0x80;
-        count = i;
-    }
-    return byte;
-}
-
-pub fn base64encode(input: &str)
+pub fn base64encode(input: &str) -> String
 {
     let base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    let mut encoded_string = "";
+    let mut encoded_string: String = "".to_owned();
     let input_length = input.len();
     let input_chars = input;
 
@@ -47,52 +31,15 @@ pub fn base64encode(input: &str)
         char_array_4[2] = ((char_array_3[1] & 0x0F) << 2) + ((char_array_3[2] & 0xC0) >> 6);
         //  Тут берем последние 6 битов и сразу же записываем
         char_array_4[3] = char_array_3[2] & 0x3F;
-        println!();
-    }
-}
 
-// #include <iostream>
-// #include <string>
-//
-// const std::string base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-//
-// std::string base64_encode(const std::string& input) {
-// std::string encoded_string;
-// size_t input_length = input.length();
-// const char* input_data = input.c_str();
-//
-// for (size_t i = 0; i < input_length; i += 3) {
-// unsigned char char_array_3[3] = {0};
-// unsigned char char_array_4[4] = {0};
-//
-// for (size_t j = 0; j < 3; j++) {
-// if (i + j < input_length) {
-// char_array_3[j] = input_data[i + j];
-// }
-// }
-//
-// char_array_4[0] = (char_array_3[0] & 0xFC) >> 2;
-// char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xF0) >> 4);
-// char_array_4[2] = ((char_array_3[1] & 0x0F) << 2) + ((char_array_3[2] & 0xC0) >> 6);
-// char_array_4[3] = char_array_3[2] & 0x3F;
-//
-// for (size_t j = 0; j < 4; j++) {
-// if (i + j <= input_length) {
-// encoded_string += base64_chars[char_array_4[j]];
-// } else {
-// encoded_string += '=';
-// }
-// }
-// }
-//
-// return encoded_string;
-// }
-//
-// int main() {
-// std::string input = "Hello, World!";
-// std::string encoded_string = base64_encode(input);
-//
-// std::cout << "Base64 Encoded String: " << encoded_string << std::endl;
-//
-// return 0;
-// }
+        // Запись в encoded переменную по 4 символа(басе64 может записать только 4 символа по 6 бит, остальные записываются как =, = - значит пустота)
+        for j in 0..4 {
+            if (i + j <= input_length) {
+                encoded_string.push(char::from(base64_chars.as_bytes()[char_array_4[j] as usize]));
+            } else {
+                encoded_string.push('=');
+            }
+        }
+    }
+    return encoded_string;
+}
