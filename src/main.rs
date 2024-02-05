@@ -1,9 +1,7 @@
 mod libs;
-use libs::converter::*;
-use libs::bit::*;
+use libs::base64::*;
 
 fn main() {
-    // w1w_readbyte();
     let result = base64encode("privet");
     println!("{}", result);
 }
