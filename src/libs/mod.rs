@@ -1,2 +1,2 @@
 pub mod converter;
-pub mod bit;
+pub mod base64;
