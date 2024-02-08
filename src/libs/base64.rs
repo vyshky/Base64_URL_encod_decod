@@ -9,7 +9,7 @@ pub fn base64encode(input: &str) -> String
     {
         let mut char_array_3: [u8; 3] = [0; 3];
         let mut base64_chars_array: [u8; 4] = [0; 4];
-        // В кодировке base64 минимальные текс состоит из 3 символов из 3 символов мы получаем 4 символа из таблицы base64
+        // В кодировке base64 минимальные текс состоит из 3 символов ASCI. Из 3 символов(ASCI) мы получаем 4 символа из таблицы base64
         for j in (0..3)
         {
             if (i + j < input_length) {
