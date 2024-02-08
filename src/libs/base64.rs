@@ -3,7 +3,8 @@ pub fn base64encode(input: &str) -> String
     let base64_chars_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     let mut encoded_string: String = "".to_owned();
     let input_length = input.len();
-    let input_chars = input;
+    let input_chars = input.as_bytes();
+
 
     for i in (0..input_length).step_by(3)
     {
@@ -13,7 +14,7 @@ pub fn base64encode(input: &str) -> String
         for j in (0..3)
         {
             if (i + j < input_length) {
-                char_array_3[j] = input_chars.as_bytes()[i + j];
+                char_array_3[j] = input_chars[i + j];
             }
         }
         // (char_array_3[0] & 0xFC) >> 2 - берем 6 левых битов и смещаем вправо на 2 бита
