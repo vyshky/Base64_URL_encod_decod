@@ -5,7 +5,6 @@ pub fn base64encode(input: &str) -> String
     let input_length = input.len();
     let input_chars = input.as_bytes();
 
-
     for i in (0..input_length).step_by(3)
     {
         let mut char_array_3: [u8; 3] = [0; 3];
